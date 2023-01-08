@@ -16,16 +16,19 @@ public class SimpleArticleService implements ArticleService {
 
     private final ArticleGenerator articleGenerator;
 
+    private static final String ARTICLE_GENERATION = "Генерация статей в количестве {}";
+    private static final String GENERATED_ARTICLE = "Сгенерирована статья № {}";
+
     public SimpleArticleService(ArticleGenerator articleGenerator) {
         this.articleGenerator = articleGenerator;
     }
 
     @Override
     public void generate(Store<Word> wordStore, int count, Store<Article> articleStore) {
-        LOGGER.info("Геренация статей в количестве {}", count);
+        LOGGER.info(ARTICLE_GENERATION, count);
         var words = wordStore.findAll();
         var articles = IntStream.iterate(0, i -> i < count, i -> i + 1)
-                .peek(i -> LOGGER.info("Сгенерирована статья № {}", i))
+                .peek(i -> LOGGER.info(GENERATED_ARTICLE, i))
                 .mapToObj((x) -> articleGenerator.generate(words))
                 .collect(Collectors.toList());
         articles.forEach(articleStore::save);
