@@ -10,12 +10,11 @@ import java.util.stream.IntStream;
 
 public class SimpleArticleService implements ArticleService {
 
+    private static final String ARTICLE_GENERATION = "Генерация статей в количестве {}";
+    private static final String GENERATED_ARTICLE = "Сгенерирована статья № {}";
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleArticleService.class.getSimpleName());
 
     private final ArticleGenerator articleGenerator;
-
-    private static final String ARTICLE_GENERATION = "Генерация статей в количестве {}";
-    private static final String GENERATED_ARTICLE = "Сгенерирована статья № {}";
 
     public SimpleArticleService(ArticleGenerator articleGenerator) {
         this.articleGenerator = articleGenerator;
